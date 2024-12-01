@@ -7,7 +7,6 @@ use tokio::fs;
 
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error> {
-    println!("Hello, world!");
     let site = "https://adventofcode.com";
     let cookie = match gcookie::get_cookies("firefox", site) {
         Ok(cookie) => cookie,
@@ -17,7 +16,7 @@ async fn main() -> Result<(), reqwest::Error> {
     let cookies_dict = get_cookies_dict(Some(&cookie));
 
     if let Some(_) = cookies_dict.get("session") {
-        let today = chrono::Local::now(); // Get the current date
+        let today = chrono::Local::now();
         let day_today = today.day();
 
         println!("Initialising day {}", day_today);
@@ -33,15 +32,11 @@ async fn main() -> Result<(), reqwest::Error> {
 }
 
 async fn setup_day(day: u32, cookie: String) -> Result<(), Box<dyn std::error::Error>> {
-    // Get the current directory in a synchronous way
     let current_dir = env::current_dir()?;
     let absolute_path = format!("{}/day{}", current_dir.display(), day);
 
     if !Path::new(&absolute_path).exists() {
-        // Create the directory asynchronously
         fs::create_dir(&absolute_path).await?;
-
-        // Change the current directory (still synchronous)
         env::set_current_dir(&absolute_path)?;
 
         let client = Client::new();
@@ -50,7 +45,6 @@ async fn setup_day(day: u32, cookie: String) -> Result<(), Box<dyn std::error::E
             .send().await?
             .text().await?;
 
-        // Write to the file asynchronously
         fs::write(format!("{}/input{}", absolute_path, day), response).await?;
     }
 
