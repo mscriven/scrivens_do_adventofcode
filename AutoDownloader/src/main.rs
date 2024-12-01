@@ -1,6 +1,5 @@
 mod problem;
-#[path = "days/day_one.rs"] mod day_one;
-
+mod days;
 use chrono::Datelike;
 use reqwest::Client;
 use std::collections::HashMap;
