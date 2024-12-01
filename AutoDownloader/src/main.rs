@@ -16,7 +16,7 @@ async fn main() -> Result<(), reqwest::Error> {
 
     let cookies_dict = get_cookies_dict(Some(&cookie));
 
-    if let Some(value) = cookies_dict.get("session") {
+    if let Some(_) = cookies_dict.get("session") {
         let today = chrono::Local::now(); // Get the current date
         let day_today = today.day();
 
