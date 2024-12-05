@@ -27,11 +27,6 @@ impl Problem<String> for DayThree {
         // let mut results = Vec::new();
         let results : Vec<&str> = re.find_iter(&input).map(|m| m.as_str()).collect();
 
-        // for (_, [path, lineno, line]) in re.captures_iter(&input).map(|c| c.extract()) {
-        //     results.push(line);
-        //     println!("got here");
-        // }
-
         println!("{:?}", results);
 
         let mut sum = 0;
@@ -39,10 +34,6 @@ impl Problem<String> for DayThree {
         for result in results {
             println!("{:?}", result);
             let nums : Vec<&str> = re2.find_iter(result).map(|m| m.as_str()).collect();
-            // let mut nums = Vec::new();
-            // for (_, [path, lineno, line]) in re2.captures_iter(&result).map(|c| c.extract()) {
-            //     nums.push(line.parse::<i32>().unwrap());
-            // }
             println!("{:?}", nums);
             sum += &nums[0].parse::<i32>().unwrap() * &nums[1].parse::<i32>().unwrap();
 
